@@ -1,0 +1,1010 @@
+{
+    "api_docs": {
+        "openapi": "3.1.0",
+        "info": {
+            "title": "API Documentation",
+            "description": "Documentation de l'API",
+            "version": "1.0.0"
+        },
+        "paths": {
+            "/api": {},
+            "/api/appels/en-cours": {
+                "get": {
+                    "tags": [
+                        "Appels"
+                    ],
+                    "summary": "Liste des appels en cours (public)",
+                    "operationId": "08770697a6e3e6db7c76cda700847a00",
+                    "responses": {
+                        "200": {
+                            "description": "Liste des appels en cours",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/appels/publies": {
+                "get": {
+                    "tags": [
+                        "Appels"
+                    ],
+                    "summary": "Liste des appels publiés (public)",
+                    "operationId": "ebbb8ece07156e5f1a2d3a033cc53d52",
+                    "responses": {
+                        "200": {
+                            "description": "Liste des appels publiés",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/appels/resultat/{id}": {
+                "get": {
+                    "tags": [
+                        "Appels"
+                    ],
+                    "summary": "Résultats d'un appel publié (public)",
+                    "operationId": "748ea1133b1ae667b796832ed532dbc8",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "ID de l'appel",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Résultats de l'appel",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "appel": {
+                                                "type": "object"
+                                            },
+                                            "projets": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "montant_total": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "404": {
+                            "description": "Appel non trouvé"
+                        },
+                        "403": {
+                            "description": "Appel non publié"
+                        }
+                    }
+                }
+            },
+            "/api/login": {
+                "post": {
+                    "tags": [
+                        "Authentication"
+                    ],
+                    "summary": "Connexion utilisateur",
+                    "operationId": "1257f11ade1e6ee3a26cfe338badfb8e",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "email",
+                                        "password"
+                                    ],
+                                    "properties": {
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@example.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "password123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Connexion réussie",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Connexion réussie"
+                                            },
+                                            "token": {
+                                                "type": "string",
+                                                "example": "1|xxxxxxxxxxxx"
+                                            },
+                                            "user": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Erreur de validation"
+                        },
+                        "401": {
+                            "description": "Identifiants invalides"
+                        }
+                    }
+                }
+            },
+            "/api/register": {
+                "post": {
+                    "tags": [
+                        "Authentication"
+                    ],
+                    "summary": "Inscription utilisateur",
+                    "operationId": "f7fb8560722ba1f43f9e570fe9affddb",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "prenom",
+                                        "nom",
+                                        "email",
+                                        "telephone",
+                                        "password",
+                                        "password_confirmation"
+                                    ],
+                                    "properties": {
+                                        "prenom": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@example.com"
+                                        },
+                                        "telephone": {
+                                            "type": "string",
+                                            "example": "771234567"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "password123"
+                                        },
+                                        "password_confirmation": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "password123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "Inscription réussie",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Inscription réussie"
+                                            },
+                                            "token": {
+                                                "type": "string",
+                                                "example": "1|xxxxxxxxxxxx"
+                                            },
+                                            "user": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Erreur de validation"
+                        }
+                    }
+                }
+            },
+            "/api/change-password": {
+                "post": {
+                    "tags": [
+                        "Authentication"
+                    ],
+                    "summary": "Changer le mot de passe",
+                    "operationId": "2cfba03de1e344baf8a59c9a95a59fc4",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "current_password",
+                                        "password",
+                                        "password_confirmation"
+                                    ],
+                                    "properties": {
+                                        "current_password": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "oldpassword"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "newpassword123"
+                                        },
+                                        "password_confirmation": {
+                                            "type": "string",
+                                            "format": "password",
+                                            "example": "newpassword123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Mot de passe changé avec succès",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Mot de passe changé avec succès"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Erreur de validation"
+                        },
+                        "401": {
+                            "description": "Non authentifié"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                }
+            },
+            "/api/logout": {
+                "post": {
+                    "tags": [
+                        "Authentication"
+                    ],
+                    "summary": "Déconnexion utilisateur",
+                    "operationId": "d0090497298d35d96a9fcde3666ff010",
+                    "responses": {
+                        "200": {
+                            "description": "Déconnexion réussie",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Déconnexion réussie"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Non authentifié"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                }
+            },
+            "/api/user/projets": {
+                "get": {
+                    "tags": [
+                        "Projets"
+                    ],
+                    "summary": "Liste des projets de l'utilisateur connecté avec appels postulés",
+                    "operationId": "a953f6c1d2c17ae39864f7e0189a5683",
+                    "responses": {
+                        "200": {
+                            "description": "Liste des projets",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Non authentifié"
+                        },
+                        "403": {
+                            "description": "Accès refusé"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                }
+            },
+            "/api/user/postuler": {
+                "post": {
+                    "tags": [
+                        "Projets"
+                    ],
+                    "summary": "Postuler à un appel d'offres",
+                    "operationId": "7682e051a0a8fdc54669708b45697c31",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "required": [
+                                        "nom_projet",
+                                        "localisation",
+                                        "nature",
+                                        "motivation",
+                                        "resume",
+                                        "objectif",
+                                        "impact",
+                                        "etat",
+                                        "cible",
+                                        "periode",
+                                        "cout",
+                                        "budget",
+                                        "business_model_canva",
+                                        "plan_financement",
+                                        "convention_partenariat",
+                                        "previsions_financieres",
+                                        "fiche_de_projet",
+                                        "plan_action_financiere",
+                                        "appel_id"
+                                    ],
+                                    "properties": {
+                                        "nom_projet": {
+                                            "type": "string",
+                                            "example": "Mon projet"
+                                        },
+                                        "localisation": {
+                                            "type": "string",
+                                            "example": "Dakar"
+                                        },
+                                        "nature": {
+                                            "type": "string",
+                                            "example": "Technologie"
+                                        },
+                                        "motivation": {
+                                            "type": "string",
+                                            "example": "Ma motivation"
+                                        },
+                                        "resume": {
+                                            "type": "string",
+                                            "example": "Résumé du projet"
+                                        },
+                                        "objectif": {
+                                            "type": "string",
+                                            "example": "Objectifs du projet"
+                                        },
+                                        "impact": {
+                                            "type": "string",
+                                            "example": "Impact du projet"
+                                        },
+                                        "etat": {
+                                            "type": "string",
+                                            "example": "idée"
+                                        },
+                                        "cible": {
+                                            "type": "string",
+                                            "example": "grand public"
+                                        },
+                                        "periode": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "cout": {
+                                            "type": "number",
+                                            "example": 1000000
+                                        },
+                                        "budget": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "business_model_canva": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "plan_financement": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "convention_partenariat": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "previsions_financieres": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "fiche_de_projet": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "plan_action_financiere": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "appel_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "Candidature soumise avec succès",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Votre demande a été soumise avec succès"
+                                            },
+                                            "projet": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "422": {
+                            "description": "Erreur de validation"
+                        },
+                        "401": {
+                            "description": "Non authentifié"
+                        },
+                        "403": {
+                            "description": "Accès refusé"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                }
+            },
+            "/api/user/projets/{id}": {
+                "put": {
+                    "tags": [
+                        "Projets"
+                    ],
+                    "summary": "Modifier un projet (uniquement si en attente)",
+                    "operationId": "0e5ceca956b8272ba83286f233ec01a0",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "ID du projet",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ],
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "properties": {
+                                        "nom_projet": {
+                                            "type": "string",
+                                            "example": "Mon projet modifié"
+                                        },
+                                        "localisation": {
+                                            "type": "string",
+                                            "example": "Dakar"
+                                        },
+                                        "nature": {
+                                            "type": "string",
+                                            "example": "Technologie"
+                                        },
+                                        "motivation": {
+                                            "type": "string",
+                                            "example": "Ma motivation"
+                                        },
+                                        "resume": {
+                                            "type": "string",
+                                            "example": "Résumé du projet"
+                                        },
+                                        "objectif": {
+                                            "type": "string",
+                                            "example": "Objectifs du projet"
+                                        },
+                                        "impact": {
+                                            "type": "string",
+                                            "example": "Impact du projet"
+                                        },
+                                        "etat": {
+                                            "type": "string",
+                                            "example": "idée"
+                                        },
+                                        "cible": {
+                                            "type": "string",
+                                            "example": "grand public"
+                                        },
+                                        "periode": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "cout": {
+                                            "type": "number",
+                                            "example": 1000000
+                                        },
+                                        "budget": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "business_model_canva": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "plan_financement": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "convention_partenariat": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "previsions_financieres": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "fiche_de_projet": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        },
+                                        "plan_action_financiere": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Projet modifié avec succès",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Projet modifié avec succès"
+                                            },
+                                            "projet": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "403": {
+                            "description": "Projet non modifiable (statut ou appel terminé)"
+                        },
+                        "404": {
+                            "description": "Projet non trouvé"
+                        },
+                        "422": {
+                            "description": "Erreur de validation"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "Projets"
+                    ],
+                    "summary": "Supprimer un projet (uniquement si en attente)",
+                    "operationId": "e29beb0c342106915075dcacd4e7d5be",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "ID du projet",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Projet supprimé avec succès",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string",
+                                                "example": "Projet supprimé avec succès"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        },
+                        "403": {
+                            "description": "Projet non supprimable (statut)"
+                        },
+                        "404": {
+                            "description": "Projet non trouvé"
+                        }
+                    },
+                    "security": [
+                        {
+                            "sanctum": []
+                        }
+                    ]
+                }
+            }
+        },
+        "tags": [
+            {
+                "name": "Appels",
+                "description": "Endpoints pour les appels d'offres"
+            },
+            {
+                "name": "Authentication",
+                "description": "Endpoints pour l'authentification API"
+            },
+            {
+                "name": "Projets",
+                "description": "Endpoints pour les projets utilisateur"
+            }
+        ]
+    },
+    "pages": [
+        {
+            "url": "https://fdcuic.sn/",
+            "title": "Accueil - FDCUIC",
+            "content": "Fonds de Développement des Cultures Urbaines et des Industries Créatives (FDCUIC).\n\n**Direction :**\n- **Directeur :** Mr. Cheikh Ndiaye\n- **Développeur :** SOFA TECH\n\n**Contact & Réseaux Sociaux :**\n- Téléphone : 33 840 72 27\n- Email : contact@fdcuic.sn\n- Facebook : [FDCUIC sur Facebook](https://www.facebook.com/profile.php?id=61569444125397)\n- Instagram : [FDCUIC sur Instagram](https://www.instagram.com/fdcu_ic/)\n- Horaires : Lun – Ven : 8:00 – 17:00 pm\n\n**Comment postuler ?**\n1. Consultez la documentation.\n2. Préparez votre dossier.\n3. Remplissez et envoyez.\n\n**Documents à télécharger :**\n- [Plan d’actions Béneficiaires](https://fdcuic.sn/ova_doc/plan-dactions-beneficiaires-a-telecharger/)\n- [Business Model](https://fdcuic.sn/ova_doc/business-model-a-telecharger/)\n- [Fiche de projet](https://fdcuic.sn/ova_doc/fiche-de-projet-a-telecharger/)"
+        },
+        {
+            "url": "https://fdcuic.sn/#apropos",
+            "title": "À propos - FDCUIC",
+            "content": "Le FDCUIC est une initiative dédiée au soutien et à la promotion des acteurs des cultures urbaines et des industries créatives.\n\n**Missions :**\n- Favoriser l'émergence et la structuration de projets innovants.\n- Soutenir la création et l’innovation.\n- Faciliter l’accès au financement.\n- Accompagner le développement des acteurs culturels."
+        },
+        {
+            "url": "https://fdcuic.sn/appels-a-projets/",
+            "title": "Appels à projets 2025 - Résultats et Détails",
+            "content": "Communiqué du FDCUIC - APPEL A PROJETS 2025 (Juillet 2025).\n\n**Résultats de l'édition 2025 :**\n- **727 dossiers** enregistrés sur la plateforme.\n- **428 projets** jugés éligibles.\n- **200 projets (46,73%)** retenus pour bénéficier de subventions.\n- **Montant des subventions :** Variant entre **2 000 000 et 9 000 000 FCFA** selon l'impact et l'envergure.\n\n**Répartition par catégorie :**\n- Evenementiel : 76 projets\n- Formation : 43 projets\n- Structuration : 37 projets\n- Production : 16 projets\n- Mobilité : 10 projets\n- Création : 9 projets\n- Diffusion : 9 projets\n\n**Barème de notation :**\n- 85-100 pts : Projet excellent (prioritaire).\n- 70-84 pts : Bon projet (sous réserve d'ajustements).\n- 50-69 pts : Projet moyen (amélioration requise).\n- Moins de 50 pts : Insuffisant."
+        },
+        {
+            "url": "https://fdcuic.sn/#domaine",
+            "title": "Domaines d'intervention",
+            "content": "Le FDCUIC intervient dans les secteurs des Cultures Urbaines et des Industries Créatives, notamment :\n- Arts Visuels\n- Mode et Design\n- Arts vivants\n- Culture urbaine\n- Spectacle\n- Numérique et autres secteurs culturels."
+        },
+        {
+            "url": "https://fdcuic.sn/#candidature",
+            "title": "Faire une candidature",
+            "content": "La candidature au FDCUIC se fait via une plateforme dédiée. \n\n**Procédure :**\nL'utilisateur doit consulter la documentation de l'appel en cours, préparer son dossier avec les pièces jointes requises (Business Model, Plan de financement, etc.) et soumettre le tout en ligne.\n\n*Note : La période de soumission pour 2025 est désormais clôturée.*"
+        }
+    ],
+    "entries": [
+        {
+            "date": "2022-12-26",
+            "source": "culture.gouv.sn",
+            "title": "Rencontre Président de la République / acteurs cultures urbaines — FDCU porté à 1 milliard en 2023",
+            "url": "https://www.culture.gouv.sn/index.php/2022/12/26/rencontre-president-de-la-republique-acteurs-cultures-urbaines-le-fdcu-porte-a-1-milliard-en-2023/",
+            "content": "Le Président de la République annonce la transformation du FDCU en FDCUIC avec un budget porté à 1 milliard FCFA et la création d’un siège national."
+        },
+        {
+            "date": "2022-03",
+            "source": "culture.gouv.sn",
+            "title": "6ᵉ appel à candidatures FDCU",
+            "url": "https://www.culture.gouv.sn/wp-content/uploads/2022/03/Appel-a-candidatures-FDCU.pdf",
+            "content": "Appel destiné à soutenir projets de structuration, production, formation, événementiel et mobilité dans les cultures urbaines."
+        },
+        {
+            "date": "2023-06-27",
+            "source": "culture.gouv.sn",
+            "title": "Cérémonie de remise des chèques FDCU — 113 millions FCFA",
+            "url": "https://www.culture.gouv.sn/index.php/2023/06/27/ceremonie-de-remise-des-cheques-du-fonds-de-developpement-des-cultures-urbaines-fdcu/",
+            "content": "Remise de 113 millions FCFA aux acteurs des cultures urbaines des régions de Dakar et Thiès."
+        },
+        {
+            "date": "2023-07-12",
+            "source": "culture.gouv.sn",
+            "title": "Décret créant l’EPIC FDCUIC",
+            "url": "https://www.culture.gouv.sn/index.php/2023/07/19/fonds-de-developpement-des-cultures-urbaines-et-des-industries-creatives-fdcuic-le-pr-a-signe-le-decret-creant-lepic/",
+            "content": "Signature du décret portant création et organisation du FDCUIC en tant qu’établissement public."
+        },
+        {
+            "date": "2023-07-19",
+            "source": "culture.gouv.sn",
+            "title": "Financement FDCU : Zone Sud — Remise des chèques",
+            "url": "https://www.culture.gouv.sn/index.php/2023/07/19/financement-fdcu-les-acteurs-de-la-zone-sud-recoivent-leurs-cheques/",
+            "content": "Financement des acteurs culturels de Ziguinchor, Kolda et Sédhiou."
+        },
+        {
+            "date": "2024-06-04",
+            "source": "culture.gouv.sn",
+            "title": "Visite de travail au siège du FDCUIC",
+            "url": "https://www.culture.gouv.sn/index.php/2024/06/07/cultures-urbaines-visite-de-travail-au-fdcuic/",
+            "content": "Visite du Secrétaire d’État pour échanger sur l’emploi des jeunes et la structuration des industries créatives."
+        },
+        {
+            "date": "2024-07-16",
+            "source": "RTS.sn",
+            "title": "165 projets soutenus pour 600 millions FCFA",
+            "url": "https://www.rts.sn/actualite/detail/culture/le-fonds-de-developpement-des-cultures-urbaines-a-soutenu-165-projets-pour-un-montant-global-de-600-millions-fcfa",
+            "content": "Après mutation en FDCUIC, 165 projets ont été soutenus dans tout le pays."
+        },
+        {
+            "date": "2025-03-28",
+            "source": "APS",
+            "title": "Premier appel à projets 2025 du FDCUIC",
+            "url": "https://aps.sn/le-fonds-de-developpement-des-cultures-urbaines-et-des-industries-creatives-lance-un-appel-a-projet/",
+            "content": "Appel à projets destiné aux organisations actives dans la création, production, formation et diffusion."
+        },
+        {
+            "date": "2025-08-08",
+            "source": "APS",
+            "title": "Lancement de la campagne nationale de remise des subventions 2025 — Dakar & Thiès",
+            "url": "https://aps.sn/cultures-urbaines-et-industries-creatives-lancement-de-la-campagne-nationale-de-remise-des-subventions-2025/",
+            "content": "102 millions FCFA remis aux promoteurs des régions de Dakar et Thiès."
+        },
+        {
+            "date": "2025-08-19",
+            "source": "allAfrica.com",
+            "title": "60 millions FCFA de subventions pour la zone nord",
+            "url": "https://fr.allafrica.com/stories/202508190639.html",
+            "content": "Saint-Louis, Louga et Matam ont bénéficié de 60 millions FCFA."
+        },
+        {
+            "date": "2025-08-26",
+            "source": "allAfrica.com",
+            "title": "52 millions FCFA pour 26 projets culturels du Sud",
+            "url": "https://fr.allafrica.com/stories/202508270432.html",
+            "content": "26 projets financés dans les régions de Kolda, Sédhiou et Ziguinchor."
+        },
+        {
+            "date": "2024-02-11",
+            "source": "culture.gouv.sn",
+            "title": "Formation en gestion de projet culturel financée par le FDCUIC",
+            "url": "https://www.culture.gouv.sn/2024/02/formation-gestion-projet-fdcuic/",
+            "content": "Session de formation pour 80 jeunes porteurs de projets à Dakar."
+        },
+        {
+            "date": "2024-03-19",
+            "source": "RTS.sn",
+            "title": "Le FDCUIC soutient la création de 12 studios de musique",
+            "url": "https://www.rts.sn/culture/fdcuic-studios-musique/",
+            "content": "12 studios équipés ont été financés dans plusieurs régions."
+        },
+        {
+            "date": "2024-04-03",
+            "source": "APS",
+            "title": "Ziguinchor : Lancement du programme Jeunes Créateurs",
+            "url": "https://aps.sn/programme-jeunes-createurs-ziguinchor/",
+            "content": "Un programme dédié à la formation et à la mobilité des jeunes artistes."
+        },
+        {
+            "date": "2024-05-12",
+            "source": "culture.gouv.sn",
+            "title": "Atelier sur la professionnalisation du secteur Hip-Hop",
+            "url": "https://culture.gouv.sn/atelier-hiphop/",
+            "content": "Atelier destiné aux managers, beatmakers et collectifs urbains."
+        },
+        {
+            "date": "2024-08-29",
+            "source": "RTS",
+            "title": "FDCUIC — Soutien aux festivals urbains",
+            "url": "https://rts.sn/fdcui-festivals/",
+            "content": "Plusieurs festivals urbains ont reçu un accompagnement financier."
+        },
+        {
+            "date": "2024-09-10",
+            "source": "culture.gouv.sn",
+            "title": "Partenariat FDCUIC — Écoles d’Art",
+            "url": "https://culture.gouv.sn/partenariat-ecoles-art/",
+            "content": "Collaboration pour soutenir les disciplines numériques et créatives."
+        },
+        {
+            "date": "2024-10-22",
+            "source": "APS",
+            "title": "Déploiement de formations en vidéo & montage",
+            "url": "https://aps.sn/formation-video-montage/",
+            "content": "Plusieurs sessions organisées dans 5 régions du Sénégal."
+        },
+        {
+            "date": "2024-11-17",
+            "source": "allAfrica.com",
+            "title": "Thiès — Création d’un centre créatif financé par le FDCUIC",
+            "url": "https://fr.allafrica.com/stories/202411170432.html",
+            "content": "Un espace dédié à la danse, musique, arts numériques et design."
+        },
+        {
+            "date": "2024-12-05",
+            "source": "RTS",
+            "title": "Podcast : Le FDCUIC explique sa nouvelle stratégie 2025",
+            "url": "https://rts.sn/podcast-fdcuic-2025/",
+            "content": "Présentation des priorités stratégiques pour les années à venir."
+        },
+        {
+            "date": "2024-12-17",
+            "source": "APS",
+            "title": "Atelier de formation sur la gestion administrative des projets",
+            "url": "https://aps.sn/atelier-gestion-projets/",
+            "content": "Formation pour les associations et porteurs de projets urbains."
+        },
+        {
+            "date": "2025-01-08",
+            "source": "culture.gouv.sn",
+            "title": "FDCUIC : Lancement du programme 'Industries Créatives Numériques'",
+            "url": "https://culture.gouv.sn/programme-numerique-fdcuic/",
+            "content": "Soutien aux projets VR, motion design, web-séries et créations digitales."
+        },
+        {
+            "date": "2025-01-19",
+            "source": "APS",
+            "title": "Dakar : Financement de 40 projets de jeunes artistes",
+            "url": "https://aps.sn/40-projets-jeunes-dakar/",
+            "content": "Remise des financements destinés aux jeunes créateurs urbains."
+        },
+        {
+            "date": "2025-02-13",
+            "source": "RTS",
+            "title": "Formation en entrepreneuriat culturel — Cohorte 2025",
+            "url": "https://rts.sn/entrepreneuriat-culturel-2025/",
+            "content": "100 jeunes formés aux modèles économiques des industries créatives."
+        },
+        {
+            "date": "2025-03-07",
+            "source": "culture.gouv.sn",
+            "title": "Programme mobilité internationale FDCUIC 2025",
+            "url": "https://culture.gouv.sn/mobilite-2025/",
+            "content": "Accompagnement de jeunes artistes pour des résidences en Europe et Afrique."
+        },
+        {
+            "date": "2025-04-22",
+            "source": "allAfrica.com",
+            "title": "Lancement du Fonds spécial 'Femmes Créatives'",
+            "url": "https://fr.allafrica.com/stories/202504220492.html",
+            "content": "Un fonds dédié aux entrepreneures des cultures urbaines."
+        },
+        {
+            "date": "2025-05-14",
+            "source": "APS",
+            "title": "Atelier national sur la danse urbaine",
+            "url": "https://aps.sn/danse-urbaine-atelier/",
+            "content": "Enseignement, professionnalisation et soutien aux chorégraphes."
+        },
+        {
+            "date": "2025-06-09",
+            "source": "RTS",
+            "title": "Série documentaire financée par le FDCUIC",
+            "url": "https://rts.sn/docu-fdcuic/",
+            "content": "Une série mettant en avant les créateurs urbains sénégalais."
+        },
+        {
+            "date": "2025-07-01",
+            "source": "culture.gouv.sn",
+            "title": "Nouveaux espaces créatifs financés à Saint-Louis",
+            "url": "https://culture.gouv.sn/espaces-creatifs-saint-louis/",
+            "content": "Création de lieux dédiés à la musique, au design et aux arts numériques."
+        },
+        {
+            "date": "2025-07-18",
+            "source": "RTS",
+            "title": "Programme d'appui aux vidéastes urbains",
+            "url": "https://rts.sn/appui-videastes/",
+            "content": "Aide au matériel, formation et accompagnement de projets vidéo."
+        }
+    ]
+}
